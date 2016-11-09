@@ -48,14 +48,14 @@ SKIP: {
 
     # setuserbuffer() errors
     throws_ok(sub {
-        Net::Pcap::userbuffer()
-    }, '/^Usage: Net::Pcap::setbuff\(p, size\)/', 
-       "calling userbuffer() with no argument");
+        Net::Pcap::setuserbuffer()
+    }, '/^Usage: Net::Pcap::setuserbuffer\(p, size\)/', 
+       "calling setuserbuffer() with no argument");
 
     throws_ok(sub {
-        Net::Pcap::userbuffer(0, 0)
-    }, '/^arg1 not a reference/', 
-       "calling userbuffer() with no argument");
+        Net::Pcap::setuserbuffer(0, 0)
+    }, '/^p is not of type pcap_tPtr/', 
+       "calling setuserbuffer() with no argument");
 
     # setmode() errors
     throws_ok(sub {
