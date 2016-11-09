@@ -562,6 +562,16 @@ sub have_functions {
     };
     warn "Using '$libfile' as potential symbol candidate";
 
+	# On 64bit Windows, generate our own .a and .def files, as they don't
+	# come with the WpdPack:
+	if( $has_Win32 and $Config{use64bitint}) {
+	    print "Generating wpcap.def file\n";
+		system( "gendef.exe - $libfile > wpcap.def" ) == 0
+		    or warn "Couldn't run gendef: $? / $!";
+		system("dlltool --as-flags=--64 -m i386:x86-64 -k --output-lib libwpcap.a --input-def wpcap.def");
+		print "libwpcap.a (re)generated. Please use it instead of the one in WpdPack.\n";
+	};
+
     my $libref = DynaLoader::dl_load_file($libfile);
     warn "Couldn't load $libfile via DynaLoader ($^E)"
         unless $libref;
