@@ -30,7 +30,7 @@ SKIP: {
 
     throws_ok(sub {
         Net::Pcap::createsrcstr(\$src, 0, 0, 0, 0, 0)
-    }, '/^arg6 not a hash ref/', 
+    }, '/^arg6 not a .*/', 
        "calling createsrcstr() with incorrect argument type for arg6");
 
     # parsesrcstr() errors
